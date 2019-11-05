@@ -1,0 +1,106 @@
+commit cce069d377a476a28b754f05d8ccbbf04a5bd86a
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 22:21:27 2019 +0200
+
+    nimivaihtu
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 1a78b3106cf0db51dd0b23bbe2ae65c5e7db13bd
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 22:18:50 2019 +0200
+
+    fileja
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit d417d6401cd7ab8bcbe34c58dc528074b26ee765
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 22:12:45 2019 +0200
+
+    heiheimoimoi
+
+ eka.txt    | 1 +
+ kolmas.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit f7025da4f9b0520409231ec1be90d79b7ea36340
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 22:09:53 2019 +0200
+
+    tiedosto-eka
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit e3bd25e56177da5c258510a70cf7484a34d20677
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 22:08:36 2019 +0200
+
+    toinen poistettu
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit 5c8c5155f73eabbf6c77a9bd6cd0df563f0bd7c1
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 22:05:45 2019 +0200
+
+    tiedosto.txt
+
+ tiedosto.txt | 16 ----------------
+ 1 file changed, 16 deletions(-)
+
+commit 6eacffff3c43a9e550441b09279174e2b72c0989
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 22:03:24 2019 +0200
+
+    tekstiäpaljon
+
+ tiedosto.txt | 35 ++++++++++++++++++++++++++++++++++-
+ 1 file changed, 34 insertions(+), 1 deletion(-)
+
+commit fddf3d6c857e757807ca47988fcfdda2d4c269f9
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 20:35:23 2019 +0200
+
+    stuff lisatty ja muuta
+
+ kolmas.txt     | 1 +
+ stuff/joku.txt | 0
+ toinen.txt     | 1 +
+ 3 files changed, 2 insertions(+)
+
+commit ad99be6f13c556f47f54c36ba9a29549b9812253
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 20:32:10 2019 +0200
+
+    toinen.txt lisatty
+
+ toinen.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 95f2d971a2b4bf5588467e7bd3db59e5e10f4233
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 18:17:14 2019 +0200
+
+    tiedosto.txt muokattu
+
+ tiedosto.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+commit df5e53fb97193375622e202a733d2766461b5749
+Author: Petteri <petteri.muinonen@gmail.com>
+Date:   Tue Nov 5 18:16:22 2019 +0200
+
+    tiedosto.txt lisatty
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+Petteri-MacBook-Pro:tiedostoja muisku$ 
+
