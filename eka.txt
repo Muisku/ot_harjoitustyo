@@ -16,3 +16,4 @@ muutosten peruminen
 Joskus tiedostoihin tulee tehtyä muutoksia, jotka on tarpeen perua
 
 tee nyt joku muutos tiedostoon eka.txt, älä lisää tiedo
+heihei
