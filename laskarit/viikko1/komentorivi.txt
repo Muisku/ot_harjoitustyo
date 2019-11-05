@@ -1,0 +1,13 @@
+.
+├── eka.txt
+├── gitlog.txt
+├── kolmas.txt
+├── laskarit
+│   └── viikko1
+├── stuff
+│   └── joku.txt
+└── tiedostoja
+    ├── file22
+    └── file3
+
+4 directories, 6 files
