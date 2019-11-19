@@ -22,7 +22,7 @@ public class Service {
         this.userdao = userdao;
     }
   
-    public boolean createUser(String name) throws SQLException {
+    public boolean ServiceCreateUser(String name) throws SQLException {
         
         User user = new User(name);
         
