@@ -17,6 +17,7 @@ public class Service {
     
     private UserDao userdao;
     private User logger;
+    private Exercise training;
     
     public Service(UserDao userdao) {
         this.userdao = userdao;
@@ -33,4 +34,14 @@ public class Service {
         }
         return true;
     } 
+     public boolean login(String name) throws SQLException {
+        User user = (User) userdao.findByUsername(name);
+        if (user == null) {
+            return false;
+        }
+        logger = user;
+        return true;
+    }
+    
+     
 }

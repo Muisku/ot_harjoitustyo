@@ -8,6 +8,7 @@ package dao;
 import domain.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -45,6 +46,23 @@ public class UserDataDao implements UserDao<User, String> {
 
     @Override
     public User findByUsername(String key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      Connection conn = database.getConnection();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE name = ?");
+        stmt.setString(1, key);
+        
+        ResultSet rs = stmt.executeQuery();
+        boolean findOne = rs.next();
+       
+        if (!findOne) {
+            return null;
+        }
+        
+        User user = new User(rs.getString("name"));
+        
+        stmt.close();
+        rs.close();
+        conn.close();
+        
+        return user;
     }
 }
