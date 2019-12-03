@@ -45,8 +45,8 @@ public class Database {
     
      public List<String> createdbTables() {
         ArrayList<String> tables = new ArrayList<>();
-        tables.add("CREATE TABLE IF NOT EXISTS User (id Integer PRIMARY KEY, name varchar(20));");
-        tables.add("CREATE TABLE IF NOT EXISTS User (id Integer PRIMARY KEY, training varchar(100), FOREIGN KEY(name) REFERENCES User(name);");
+        tables.add("CREATE TABLE IF NOT EXISTS User (username varchar (30) PRIMARY KEY, name varchar(30));");
+        tables.add("CREATE TABLE IF NOT EXISTS Exercise (id integer PRIMARY KEY, user_username varchar, day varchar, exname varchar(100),reps Integer (5), sets Integer (5), FOREIGN KEY (user_username) REFERENCES User(username));");
         
         return tables;
     }

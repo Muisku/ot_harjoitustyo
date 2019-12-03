@@ -28,9 +28,10 @@ public class UserDataDao implements UserDao<User, String> {
         Connection connection = database.getConnection();
 
         System.out.println("New user added to database");
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO User(name) VALUES(?)");
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO User(username, name) VALUES(?, ?)");
 
-        stmt.setString(1, object.getName());
+        stmt.setString(1, object.getUsername());
+        stmt.setString(2, object.getName());
        
 
         stmt.executeUpdate();
@@ -47,7 +48,7 @@ public class UserDataDao implements UserDao<User, String> {
     @Override
     public User findByUsername(String key) throws SQLException {
       Connection conn = database.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE name = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM User WHERE username = ?");
         stmt.setString(1, key);
         
         ResultSet rs = stmt.executeQuery();
@@ -57,7 +58,7 @@ public class UserDataDao implements UserDao<User, String> {
             return null;
         }
         
-        User user = new User(rs.getString("name"));
+        User user = new User(rs.getString("username"), rs.getString("name"));
         
         stmt.close();
         rs.close();

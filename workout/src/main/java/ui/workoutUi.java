@@ -23,6 +23,7 @@ package ui;
 //import javafx.scene.layout.StackPane;
 //import javafx.stage.Stage;¨
 import dao.Database;
+import dao.ExerciseDataDao;
 import dao.UserDataDao;
 import java.sql.*;
 import java.io.FileInputStream;
@@ -44,6 +45,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
+import dao.ExerciseDao;
 
 /**
  *
@@ -71,7 +73,8 @@ public class workoutUi extends Application {
         database.init();
 
         UserDataDao userDao = new UserDataDao(database);
-        service = new Service(userDao);
+        ExerciseDataDao exerciseDao = new ExerciseDataDao(database);
+        service = new Service(userDao, exerciseDao);
 
     }
 
@@ -135,15 +138,18 @@ public class workoutUi extends Application {
     public void createUser(Stage primaryStage) {
         HBox createBox = new HBox(15);
         Button createUserbtn = new Button("Create User!");
+        Button bcloginscreen = new Button("Back to login screen");
         TextField userName = new TextField();
+        TextField Name = new TextField();
 
-        createBox.getChildren().addAll(userName, createUserbtn);
+        createBox.getChildren().addAll(userName, Name, createUserbtn, bcloginscreen);
         createUserScene = new Scene(createBox, 200, 200);
 
         createUserbtn.setOnAction(e -> {
-            String name = userName.getText();
+            String username = userName.getText();
+            String name = Name.getText();
             try {
-                if (service.ServiceCreateUser(name)) {
+                if (service.ServiceCreateUser(username, name)) {
                     System.out.println("wohoo new trainer!");
                     primaryStage.setTitle("Create User or Login");
 
@@ -153,24 +159,36 @@ public class workoutUi extends Application {
                 Logger.getLogger(workoutUi.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        bcloginscreen.setOnAction(e -> {
+            primaryStage.setScene(loginscene);
+            });
 
     }
 
     public void createloginUserView(Stage primaryStage) {
-       TextField training = new TextField();
+       TextField exname = new TextField();
+       TextField reps = new TextField();
+       TextField sets = new TextField();
+       TextField day = new TextField();
         Button createtraining = new Button("createtraining");
         Button logout = new Button("logout");
         HBox createtrainingcomponents = new HBox();
         ScrollPane contscroll = new ScrollPane();
         BorderPane trainingpage = new BorderPane(contscroll);
-
-       
-
-       
-
-        createtrainingcomponents.getChildren().addAll(training, createtraining, contscroll, logout);
+        createtrainingcomponents.getChildren().addAll(exname, reps, sets, day, createtraining, contscroll, logout);
         trainingscene = new Scene(createtrainingcomponents, 500, 500);
 
+        
+        createtraining.setOnAction(e -> {
+            int repss = Integer.parseInt(reps.getText());
+            int setss = Integer.parseInt(sets.getText());
+           try {
+               service.createExercise(exname.getText(), repss, setss, day.getText());
+               System.out.println("Mave on sisällä!");
+           } catch (SQLException ex) {
+               Logger.getLogger(workoutUi.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        });
     }
 
     /**

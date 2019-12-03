@@ -10,37 +10,67 @@ package domain;
  * @author muisku
  */
 public class Exercise {
-    
-     int id;
-     String ExName;
-     public User user;
-     
-     public Exercise(int id, String ExName, User user) {
-     
-         this.id = id;
-         this.ExName = ExName;
-     
-     }
-     
-     
-     public Exercise(String ExName, User user) {
-        
-         this.ExName = ExName;
-         this.user = user;
-     
-     }
-     
-     public Exercise(String ExName) {
-        
-         this.ExName = ExName;
-      
-     
-     }
-     
-    public String getExerciseName() {
-        return ExName;
+
+    int id;
+    public User user;
+    String exName;
+    String day;
+    Integer reps;
+    Integer sets;
+    private boolean delete;
+
+    public Exercise(int id, String exName, String day, Integer reps, Integer sets, User user) {
+
+        this.id = id;
+        this.exName = exName;
+        this.reps = reps;
+        this.sets = sets;
+        this.day = day;
+        this.delete = false;
+
     }
- 
+    public Exercise(String exName, Integer reps, Integer sets, String day) {
+
+       
+        this.exName = exName;
+        this.reps = reps;
+        this.sets = sets;
+        this.day = day;
+        this.delete = false;
+
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEx() {
+        return exName;
+    }
+
+    public int getReps() {
+        return reps;
+    }
+    
+
+    public int getSets() {
+        return sets;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isDelete() {
+        return delete;
+    }
+
+    public void setDelete() {
+        delete = true;
+    }
+    public String getday() {
+        return day;
+    }
 
     public User getUser() {
         return user;

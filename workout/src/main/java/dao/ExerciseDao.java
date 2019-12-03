@@ -5,10 +5,23 @@
  */
 package dao;
 
+
+import java.sql.SQLException;
+import java.sql.*;
+import java.util.*;
+
 /**
  *
  * @author muisku
  */
-public class ExerciseDao {
+public interface ExerciseDao<T, K> {
+    
+    void delete(K key) throws SQLException;
+    
+    T saveOrUpdate(T object) throws SQLException;
+    
+    T findOne(K key) throws SQLException;
+    
+    List<T> findAll(K key) throws SQLException;
     
 }
