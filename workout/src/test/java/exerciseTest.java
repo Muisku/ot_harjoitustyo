@@ -21,7 +21,7 @@ public class exerciseTest {
      @Test
     public void Constructor() {
         Exercise exercise = new Exercise("Mave");
-        assertEquals("Mave", exercise.getExerciseName());
+        assertEquals("Mave", exercise.getEx());
     }
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:

@@ -22,7 +22,7 @@ public class userTest {
     
     @Test
     public void Constructor() {
-        User user = new User("William");
+        User user = new User("William", "W");
         assertEquals("William", user.getName());
     }
 }
