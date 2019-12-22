@@ -13,6 +13,8 @@ import dao.UserDao;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -42,11 +44,19 @@ public class Service {
         return true;
     }
     
-    public boolean createExercise(String exName, Integer reps, Integer sets, String day) throws SQLException {
+    public boolean createExercise(String exName, String day, String weight, String sets, String reps) throws SQLException {
         
-        Exercise exercise = new Exercise(exName, reps, sets, day);
+        
+        Exercise exercise = new Exercise(exName, logger, day, weight, sets, reps);
         exercisedao.saveOrUpdate(exercise);
         return true;
+    }
+    
+     public List<Exercise> getExercises() throws SQLException {
+        if (logger == null) {
+            return new ArrayList<>();
+        }
+        return exercisedao.findAll(logger.getUsername());
     }
     
      
@@ -58,6 +68,7 @@ public class Service {
         logger = user;
         return true;
     }
+   
     
      
 }

@@ -46,6 +46,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import dao.ExerciseDao;
+import domain.Exercise;
+import javafx.scene.Node;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -58,6 +62,7 @@ public class workoutUi extends Application {
     private Scene createUserScene;
     private Scene loginscene;
     private Scene trainingscene;
+    private VBox exnode;
 
     @Override
     public void init() throws IOException, Exception {
@@ -79,7 +84,7 @@ public class workoutUi extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws SQLException {
 
         // CREATE FIRST VIEW
         Button btncreateuser = new Button();
@@ -122,6 +127,7 @@ public class workoutUi extends Application {
                 if (service.login(logginginName)) {
                     System.out.println("own view!");
                     primaryStage.setTitle("List Ur Trainings");
+                    refreshEx();
                     primaryStage.setScene(trainingscene);
                     //       stage.setScene(trainingscene)
                 }
@@ -161,34 +167,111 @@ public class workoutUi extends Application {
         });
         bcloginscreen.setOnAction(e -> {
             primaryStage.setScene(loginscene);
-            });
+        });
 
     }
 
-    public void createloginUserView(Stage primaryStage) {
-       TextField exname = new TextField();
-       TextField reps = new TextField();
-       TextField sets = new TextField();
-       TextField day = new TextField();
+    public void createloginUserView(Stage primaryStage) throws SQLException {
+
+        TextField exname = new TextField();
+        TextField day = new TextField();
+        TextField weight = new TextField();
+        TextField sets = new TextField();
+        TextField reps = new TextField();
+
+        Label exLabel = new Label("exercise:");
+        Label dateLabel = new Label("date:");
+        Label weightLabel = new Label("weight:");
+        Label setsLabel = new Label("sets:");
+        Label repsLabel = new Label("reps:");
+
         Button createtraining = new Button("createtraining");
         Button logout = new Button("logout");
-        HBox createtrainingcomponents = new HBox();
+        HBox createtrainingcomponents = new HBox(10);
+        createtrainingcomponents.setPadding(new Insets(15, 15, 15, 15));
+        HBox top = new HBox(10);
+        top.setPadding(new Insets(15, 15, 15, 15));
+        Region spacer = new Region();
+
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        HBox middle = new HBox(10);
+        middle.setPadding(new Insets(15, 15, 15, 15));
         ScrollPane contscroll = new ScrollPane();
         BorderPane trainingpage = new BorderPane(contscroll);
-        createtrainingcomponents.getChildren().addAll(exname, reps, sets, day, createtraining, contscroll, logout);
-        trainingscene = new Scene(createtrainingcomponents, 500, 500);
+        
+        trainingscene = new Scene(trainingpage, 1200, 500);
+        
+        trainingpage.setPadding(new Insets(20, 20, 20, 20));
+        exnode = new VBox(10);
+        exnode.setMaxWidth(500);
+        exnode.setMinWidth(500);
+        contscroll.setContent(exnode);
+
+        createtrainingcomponents.getChildren().addAll(exLabel, exname, dateLabel, day, weightLabel, weight, setsLabel, sets, repsLabel, reps, spacer);
+        top.getChildren().addAll(createtraining, logout, spacer);
+        middle.getChildren().addAll(contscroll, spacer);
+
+        trainingpage.setCenter(middle);
+        trainingpage.setTop(top);
+        trainingpage.setBottom(createtrainingcomponents);
 
         
+
         createtraining.setOnAction(e -> {
-            int repss = Integer.parseInt(reps.getText());
-            int setss = Integer.parseInt(sets.getText());
-           try {
-               service.createExercise(exname.getText(), repss, setss, day.getText());
-               System.out.println("Mave on sisällä!");
-           } catch (SQLException ex) {
-               Logger.getLogger(workoutUi.class.getName()).log(Level.SEVERE, null, ex);
-           }
+//            int repss = Integer.parseInt(reps.getText());
+//            int setss = Integer.parseInt(sets.getText());
+            try {
+                service.createExercise(exname.getText(), day.getText(), weight.getText(), sets.getText(), reps.getText());
+                
+                refreshEx();
+            } catch (SQLException ex) {
+                Logger.getLogger(workoutUi.class.getName()).log(Level.SEVERE, null, ex);
+            }
         });
+        
+        
+          logout.setOnAction(e -> {
+            primaryStage.setScene(loginscene);
+        });
+
+        refreshEx();
+    }
+
+    public void refreshEx() throws SQLException {
+
+        exnode.getChildren().clear();
+        List<Exercise> exercises;
+        exercises = service.getExercises();
+
+        exercises.forEach(content -> {
+            try {
+                exnode.getChildren().add(createExNode(content));
+            } catch (SQLException ex) {
+                System.out.println("Error with node!");
+            }
+        });
+
+    }
+
+    public Node createExNode(Exercise exercise) throws SQLException {
+        HBox exbox = new HBox(10);
+
+        Label exlabel = new Label(exercise.getEx());
+
+        Label date = new Label(exercise.getDay());
+        Label weight = new Label(exercise.getWeight());
+
+        Label setsLabel = new Label(exercise.getSets() + " kertaa          ");
+
+        Label repsLabel = new Label(exercise.getReps() + " toistoa          ");
+
+        Region spacer = new Region();
+        exbox.setPadding(new Insets(5, 0, 0, 20));
+
+        exbox.getChildren().addAll(date,exlabel, weight, setsLabel, repsLabel);
+
+        return exbox;
     }
 
     /**

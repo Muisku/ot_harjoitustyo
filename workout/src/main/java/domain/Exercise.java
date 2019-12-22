@@ -15,28 +15,51 @@ public class Exercise {
     public User user;
     String exName;
     String day;
-    Integer reps;
-    Integer sets;
+    String weight;
+    String reps;
+    String sets;
     private boolean delete;
 
-    public Exercise(int id, String exName, String day, Integer reps, Integer sets, User user) {
+    public Exercise(int id, String exName, User user) {
 
         this.id = id;
         this.exName = exName;
+        this.user = user;
+        this.weight = weight;
         this.reps = reps;
         this.sets = sets;
         this.day = day;
         this.delete = false;
 
     }
-    public Exercise(String exName, Integer reps, Integer sets, String day) {
+    public Exercise(String exName, User user, String day, String weight, String reps, String sets) {
 
        
         this.exName = exName;
+         this.user = user;
+        this.weight = weight;
         this.reps = reps;
         this.sets = sets;
         this.day = day;
         this.delete = false;
+
+    }
+    
+    public Exercise(String exName) {
+
+       
+        this.exName = exName;
+    
+
+    }
+    public Exercise(String exName, String day, String weight, String sets, String reps) {
+
+       
+        this.exName = exName;
+        this.weight = weight;
+        this.reps = reps;
+        this.sets = sets;
+        this.day = day;
 
     }
 
@@ -48,12 +71,15 @@ public class Exercise {
         return exName;
     }
 
-    public int getReps() {
+    public String getReps() {
         return reps;
+    }
+    public String getWeight() {
+        return weight;
     }
     
 
-    public int getSets() {
+    public String getSets() {
         return sets;
     }
 
@@ -68,7 +94,7 @@ public class Exercise {
     public void setDelete() {
         delete = true;
     }
-    public String getday() {
+    public String getDay() {
         return day;
     }
 

@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,15 +43,17 @@ public class ExerciseDataDao implements ExerciseDao<Exercise, String> {
         }
 
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Exercise"
-                + " (user_username, exname, reps, sets, day)"
-                + " VALUES (?, ?, ?, ?, ?)");
+                + " (user_username, exname, day, weight, sets, reps)"
+                + " VALUES (?, ?, ?, ?, ?, ?)");
 
         stmt.setObject(1, object.getUser().getUsername());
 
         stmt.setString(2, object.getEx());
-        stmt.setInt(3, object.getReps());
-        stmt.setInt(4, object.getSets());
-        stmt.setString(5, object.getday());
+        stmt.setString(3, object.getDay());
+        stmt.setString(4, object.getWeight());
+        stmt.setString(5, object.getSets());
+        stmt.setString(6, object.getReps());
+//        stmt.setString(5, object.getday());
         stmt.executeUpdate();
 
         stmt.close();
@@ -72,7 +75,7 @@ public class ExerciseDataDao implements ExerciseDao<Exercise, String> {
         }
         User user = userDao.findByUsername(rs.getString("user_username"));
 
-        Exercise exercise = new Exercise(rs.getInt("id"), rs.getString("day"), rs.getString("exname"), rs.getInt("reps"), rs.getInt("sets"),
+        Exercise exercise = new Exercise(rs.getInt("id"), rs.getString("exname"),
                 user);
 
         stmt.close();
@@ -86,7 +89,23 @@ public class ExerciseDataDao implements ExerciseDao<Exercise, String> {
 
     @Override
     public List<Exercise> findAll(String key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Exercise> exercises = new ArrayList<>();
+        Connection connection = database.getConnection();
+        
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Exercise WHERE user_username = ?");
+        stmt.setObject(1, key);
+        
+         ResultSet rs = stmt.executeQuery();
+        
+        while (rs.next()) {
+            Exercise exercise = new Exercise(rs.getString("exName"), rs.getString("day"), rs.getString("weight"), rs.getString("sets"), rs.getString("reps"));
+            exercises.add(exercise);
+        }
+        stmt.close();
+        rs.close();
+        connection.close();
+        return exercises;
+
     }
 
 }
